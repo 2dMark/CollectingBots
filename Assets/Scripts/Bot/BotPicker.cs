@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class BotPicker : MonoBehaviour
@@ -17,12 +16,12 @@ public class BotPicker : MonoBehaviour
         _target.transform.localPosition = Vector3.up;
     }
 
-    public void PutIn(Base closerBase)
+    public void PutIn(Base homeBase)
     {
         if (_target == null)
             return;
 
-        closerBase.PutResourceOnWarehouse(_target);
+        homeBase.PutResourceOnWarehouse(_target);
 
         _target = null;
     }

@@ -7,13 +7,15 @@ using UnityEngine;
 public class Bot : MonoBehaviour, ICollector
 {
     [SerializeField] private BotCollisionHandler _botCollisionHandler;
-    
+
     private BotMovement _botMovement;
     private BotPicker _botPicker;
-    private Base _defaultBase;
+    private Base _homeBase;
     private Resource _target;
 
-    public event Action<Bot> WorkCompleted;
+    public event Action WorkCompleted;
+    
+    public BotStates State { get; private set; } = BotStates.Idle;
 
     private void Awake()
     {
@@ -33,13 +35,14 @@ public class Bot : MonoBehaviour, ICollector
         _botCollisionHandler.WarehouseReached -= PutTarget;
     }
 
-    public void SetDefaultBase(Base defaultBase) => _defaultBase = defaultBase;
+    public void SetHomeBase(Base homeBase) => _homeBase = homeBase;
 
     public void SetTarget(Resource resource)
     {
-        if (_defaultBase == null)
+        if (_homeBase == null)
             return;
 
+        State = BotStates.Work;
         _target = resource;
 
         _botMovement.MoveTo(_target.transform.position);
@@ -55,25 +58,24 @@ public class Bot : MonoBehaviour, ICollector
         ReturnToBase();
     }
 
-    private void PutTarget(Base closerBase)
+    private void PutTarget(Base homeBase)
     {
         if (_botPicker.IsTargetReached == false)
             return;
 
-        _botMovement.StopMoving();
-        _botPicker.PutIn(closerBase);
+        _botPicker.PutIn(homeBase);
 
         _target = null;
+        State = BotStates.Idle;
 
-        WorkCompleted?.Invoke(this);
+        WorkCompleted?.Invoke();
     }
 
     private void ReturnToBase()
     {
-        if (_defaultBase == null)
+        if (_homeBase == null)
             return;
 
-        _botMovement.StopMoving();
-        _botMovement.MoveTo(_defaultBase.transform.position);
+        _botMovement.MoveTo(_homeBase.transform.position);
     }
 }

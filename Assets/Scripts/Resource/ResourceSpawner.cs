@@ -56,7 +56,7 @@ public class ResourceSpawner : MonoBehaviour
 
         do
             randomPosition = GetRandomPosition();
-        while (CheckPosition(randomPosition) == false);
+        while (IsPositionFree(randomPosition) == false);
 
         return randomPosition;
     }
@@ -70,7 +70,7 @@ public class ResourceSpawner : MonoBehaviour
         return new(randomCoordinateX, coordinateY, randomCoordinateZ);
     }
 
-    private bool CheckPosition(Vector3 position)
+    private bool IsPositionFree(Vector3 position)
     {
         Collider[] closerObjects = Physics.OverlapSphere(position, _spawnRadius);
 
