@@ -6,10 +6,9 @@ using UnityEngine;
 [RequireComponent(typeof(Scanner))]
 [RequireComponent(typeof(Warehouse))]
 [RequireComponent(typeof(BotsSpawner))]
-
 public class Base : MonoBehaviour, ICollector
 {
-    [SerializeField, Min(0)] private int StarterBotsAmount = 3;
+    [SerializeField, Min(0)] private int _starterBotsAmount = 3;
     [SerializeField] private ResourceDatabase _resourceDatabase;
 
     private Scanner _scanner;
@@ -24,7 +23,7 @@ public class Base : MonoBehaviour, ICollector
         _warehouse = GetComponent<Warehouse>();
 
         _scanner.SetResourceDatabase(_resourceDatabase);
-        _botSpawner.Spawn(StarterBotsAmount, out _bots);
+        _botSpawner.Spawn(_starterBotsAmount, out _bots);
     }
 
     private void OnEnable()
@@ -32,7 +31,8 @@ public class Base : MonoBehaviour, ICollector
         StartCoroutine(BaseWork());
     }
 
-    public void PutResourceOnWarehouse(Resource resource) => _warehouse.PutResource(resource);
+    public void PutResourceOnWarehouse(Resource resource) =>
+        _warehouse.PutResource(resource);
 
     private IEnumerator BaseWork()
     {

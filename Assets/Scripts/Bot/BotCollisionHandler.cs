@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-
 public class BotCollisionHandler : MonoBehaviour
 {
     private Collider _collider;

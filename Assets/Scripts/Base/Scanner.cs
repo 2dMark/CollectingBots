@@ -4,15 +4,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-
 public class Scanner : MonoBehaviour
 {
-    [SerializeField, Min(0)] private float _scanDelay = 2f;
-    [SerializeField, Min(0)] private float _scanRadius = 60f;
+    [SerializeField, Min(0)] private float _scanDelay = 1f;
 
     private ResourceDatabase _resourceDatabase;
+    private Collider _groundCollider;
 
     public event Action<List<Resource>> ResourcesDetected;
+
+    private void Awake()
+    {
+        GetGroundCollider();
+    }
 
     private void OnEnable()
     {
@@ -34,12 +38,20 @@ public class Scanner : MonoBehaviour
         }
     }
 
+    private void GetGroundCollider()
+    {
+        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, Mathf.Infinity))
+            if (hit.collider.TryGetComponent(out Ground _))
+                _groundCollider = hit.collider;
+    }
+
     private void Scan()
     {
-        if (_resourceDatabase == null)
+        if (_resourceDatabase == null || _groundCollider == null)
             return;
 
-        Collider[] colliders = Physics.OverlapSphere(transform.position, _scanRadius);
+        Collider[] colliders =
+            Physics.OverlapBox(_groundCollider.bounds.center, _groundCollider.bounds.extents);
         List<Resource> resources = new();
 
         foreach (Collider collider in colliders)

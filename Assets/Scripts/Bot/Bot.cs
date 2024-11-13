@@ -3,7 +3,6 @@ using UnityEngine;
 
 [RequireComponent(typeof(BotMovement))]
 [RequireComponent(typeof(BotPicker))]
-
 public class Bot : MonoBehaviour, ICollector
 {
     [SerializeField] private BotCollisionHandler _botCollisionHandler;
@@ -35,7 +34,8 @@ public class Bot : MonoBehaviour, ICollector
         _botCollisionHandler.WarehouseReached -= PutTarget;
     }
 
-    public void SetHomeBase(Base homeBase) => _homeBase = homeBase;
+    public void SetHomeBase(Base homeBase) =>
+        _homeBase = homeBase;
 
     public void SetTarget(Resource resource)
     {

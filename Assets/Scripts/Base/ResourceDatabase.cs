@@ -6,7 +6,8 @@ public class ResourceDatabase : MonoBehaviour
 {
     private Dictionary<Resource, ResourceStates> _resourcesStates;
 
-    public bool IsResourceUnassigned => _resourcesStates.ContainsValue(ResourceStates.Unassigned);
+    public bool IsResourceUnassigned =>
+        _resourcesStates.ContainsValue(ResourceStates.Unassigned);
 
     private void Awake()
     {
@@ -32,5 +33,6 @@ public class ResourceDatabase : MonoBehaviour
                 resource.Destroyed += RemoveResourceData;
     }
 
-    private void RemoveResourceData(Resource resource) => _resourcesStates.Remove(resource);
+    private void RemoveResourceData(Resource resource) =>
+        _resourcesStates.Remove(resource);
 }

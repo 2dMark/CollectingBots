@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Base))]
-
 public class BotsSpawner : MonoBehaviour
 {
     private const float Angle = 360f;

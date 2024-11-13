@@ -18,5 +18,6 @@ public class WarehouseInfo : MonoBehaviour
         _warehouse.ResourcesAmountChanged -= SetResourceAmount;
     }
 
-    private void SetResourceAmount(float value) => _text.text = $"Resources: {value}";
+    private void SetResourceAmount(float value) =>
+        _text.text = $"{value}";
 }

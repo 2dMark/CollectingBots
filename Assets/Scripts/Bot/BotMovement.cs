@@ -2,7 +2,6 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Bot))]
-
 public class BotMovement : MonoBehaviour
 {
     [SerializeField] private float _speed;
