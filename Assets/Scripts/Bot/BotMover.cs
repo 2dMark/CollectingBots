@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Bot))]
-public class BotMovement : MonoBehaviour
+public class BotMover : MonoBehaviour
 {
     [SerializeField] private float _speed;
 
@@ -39,14 +39,11 @@ public class BotMovement : MonoBehaviour
 
     private IEnumerator Moving(Vector3 position)
     {
-        while (enabled)
+        while (transform.position != position)
         {
             transform.LookAt(position);
             transform.position = Vector3.MoveTowards
                 (transform.position, position, _speed * Time.deltaTime);
-
-            if (transform.position == position)
-                break;
 
             yield return null;
         }

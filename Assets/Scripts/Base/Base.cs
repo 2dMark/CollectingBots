@@ -23,7 +23,7 @@ public class Base : MonoBehaviour, ICollector
         _warehouse = GetComponent<Warehouse>();
 
         _scanner.SetResourceDatabase(_resourceDatabase);
-        _botSpawner.Spawn(_starterBotsAmount, out _bots);
+        _bots = _botSpawner.Spawn(_starterBotsAmount);
     }
 
     private void OnEnable()

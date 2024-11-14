@@ -10,14 +10,12 @@ public class BotsSpawner : MonoBehaviour
     [SerializeField] private Transform _spawnPoint;
 
     private Base _base;
-    private ObjectPool<Bot> _pool;
     private float _newBotSpacing = Angle * Mathf.Deg2Rad;
 
-    public void Spawn(float botsAmount, out List<Bot> bots)
+    public List<Bot> Spawn(float botsAmount)
     {
         _base = GetComponent<Base>();
-        _pool = new(_prefab, transform);
-        bots = new();
+        List<Bot> bots = new();
 
         Bot newBot;
         Vector3 circularPosition;
@@ -33,12 +31,14 @@ public class BotsSpawner : MonoBehaviour
 
             newPosition = _spawnPoint.transform.position + circularPosition;
 
-            newBot = _pool.GetObject();
+            newBot = Instantiate(_prefab, transform);
             newBot.transform.position = newPosition;
 
             newBot.SetHomeBase(_base);
             newBot.gameObject.SetActive(true);
             bots.Add(newBot);
         }
+
+        return bots;
     }
 }

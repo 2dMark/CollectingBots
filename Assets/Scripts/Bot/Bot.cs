@@ -1,13 +1,13 @@
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(BotMovement))]
+[RequireComponent(typeof(BotMover))]
 [RequireComponent(typeof(BotPicker))]
 public class Bot : MonoBehaviour, ICollector
 {
     [SerializeField] private BotCollisionHandler _botCollisionHandler;
 
-    private BotMovement _botMovement;
+    private BotMover _botMovement;
     private BotPicker _botPicker;
     private Base _homeBase;
     private Resource _target;
@@ -18,7 +18,7 @@ public class Bot : MonoBehaviour, ICollector
 
     private void Awake()
     {
-        _botMovement = GetComponent<BotMovement>();
+        _botMovement = GetComponent<BotMover>();
         _botPicker = GetComponent<BotPicker>();
     }
 
